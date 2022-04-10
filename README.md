@@ -1,9 +1,11 @@
 # weatherforecast
-### Usage
-```
- pip install -r requeriments.txt
 
-```
+### Usage
+
+install requirements -
+```bash
+ pip install -r requeriments.txt
+ ```
 
 ### Author
-* Chirag Kadam
+* [Chirag Kadam](github.com/chirag232001)
