@@ -1,3 +1,4 @@
+import json
 from tkinter import *
 import tkinter as tk
 from geopy.geocoders import Nominatim
@@ -7,6 +8,7 @@ from datetime import datetime
 import requests
 import pytz
 from PIL import Image, ImageTk
+
 
 root = Tk()
 root.title("Weather App")
@@ -23,8 +25,9 @@ def getWeather():
         home = pytz.timezone(result)
         local_time = datetime.now(home)
         current_time = local_time.strftime("%I:%M %p")
-        clock.config(text=current_time)
-        name.config(text="CURRENT TIME")
+
+        # clock.config(text=current_time)
+        # name.config(text="CURRENT TIME")
         # print(result)
 
         # Weather API
@@ -43,15 +46,29 @@ def getWeather():
         humid = json_data["main"]["humidity"]
         wind_1 = json_data["wind"]["speed"]
 
-        temp.config(text=(tempt, "°"))
-        cond.config(text=(condition, "|", "FEELS", "LIKE", feels_like, "°"))
-        wind.config(text=wind_1)
-        humidity.config(text=humid)
-        pressure.config(text=press)
+        # temp.config(text=(tempt, "°"))
+        # cond.config(text=(condition, "|", "FEELS", "LIKE", feels_like, "°"))
+        # wind.config(text=wind_1)
+        # humidity.config(text=humid)
+        # pressure.config(text=press)
+
+        return [condition,description,tempt,feels_like,press,humid,wind_1,current_time]
     except Exception as e:
         messagebox.showerror("Weather App", "Invalid Input!")
 
 
+
+def valConfig():
+    arrayOfData = getWeather()
+    clock.config(text=arrayOfData[7])
+    name.config(text="CURRENT TIME")
+    temp.config(text=(arrayOfData[2], "°"))
+    cond.config(text=(arrayOfData[0], "|", "FEELS", "LIKE", arrayOfData[3], "°"))
+    wind.config(text=arrayOfData[6])
+    humidity.config(text=arrayOfData[5])
+    pressure.config(text=arrayOfData[4])
+    
+    pass
 # Search Box
 Search_image = PhotoImage(file="images/search.png")
 myimage = Label(image=Search_image)
@@ -72,7 +89,7 @@ textfield.focus()
 # Search Icon
 Search_icon = PhotoImage(file="images/search_icon.png")
 myimage_icon = Button(
-    image=Search_icon, borderwidth=0, cursor="hand2", bg="#404040", command=getWeather
+    image=Search_icon, borderwidth=0, cursor="hand2", bg="#404040", command=valConfig
 )
 myimage_icon.place(x=600, y=32)
 
