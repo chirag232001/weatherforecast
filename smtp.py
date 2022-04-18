@@ -14,13 +14,7 @@ def message(receiver_add, dataArray):
 		smtp_server.starttls() #setting up to TLS connection
 		smtp_server.ehlo() #calling the ehlo() again as encryption happens on calling startttls()
 		smtp_server.login(sender_add,password) #logging into out email id
-		message = """From: Temp Sender <from@fromdomain.com>
-		To: me <to@todomain.com>
-		Subject: Admission Done
-
-		On Current """+  dataArray[0] + """  Temperature at """+  dataArray[1] + """  is """+ dataArray[2] + """ and wind is """+  dataArray[3] + """ , Humidity is """+  dataArray[4] + """, Pressure is """+  dataArray[5] + """
-        It Feels like """+  dataArray[6] + """ and """+  dataArray[7] + """
-		""" 
+		message = dataArray
 		#sending the mail by specifying the from and to address and the message 
 		smtp_server.sendmail(sender_add,receiver_add,message)
 		# print('Successfully the mail is sent') #priting a message on sending the mail
